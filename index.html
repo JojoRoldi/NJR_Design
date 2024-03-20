@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>NJR Design</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/logo 2022.png" />
+        <!-- Icônes Bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Polices Google-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- CSS du plugin SimpleLightbox-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        <!-- CSS du th�me principal (inclut Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">NJR Design</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contacts</a></li>
+                        <!-- Ajout de l'espace utilisateur -->
+                        <!-- Ajout de la partie S'inscrire -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Connexion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="loginForm" class="px-4 py-3">
+                  <div class="mb-3">
+                    <label for="loginEmail" class="form-label">Adresse email</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="email@example.com">
+                  </div>
+                  <div class="mb-3">
+                    <label for="loginPassword" class="form-label">Mot de passe</label>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Mot de passe">
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary" id="loginButton" >Se connecter</button>
+                  </div>
+                  <span id="welcomeMessage" style="display: none;">Bon retour parmi nous !</span>
+                </form>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" id="forgotPasswordLink">Mot de passe oublié?</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Inscription -->
+        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signupModalLabel">Inscription</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Formulaire d'inscription -->
+                        <form id="signupForm" method="post" action="inscription.php">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Nom complet</label>
+                                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Nom complet" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signupEmail" class="form-label">Adresse email</label>
+                                <input type="email" class="form-control" id="signupEmail" name="signupEmail" placeholder="email@example.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label">Numéro de téléphone</label>
+                                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Numéro de téléphone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signupPassword" class="form-label">Mot de passe</label>
+                                <input type="password" class="form-control" id="signupPassword" name="signupPassword" placeholder="Mot de passe" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirmer le mot de passe" required>
+                                <div class="invalid-feedback" id="passwordMismatchError" style="display: none;">Les mots de passe ne correspondent pas.</div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary" id="signupButton">S'inscrire</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ajout de la div modal pour la réinitialisation du mot de passe -->
+        <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="resetPasswordModalLabel">Réinitialisation du mot de passe</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="resetPasswordForm">
+                            <div class="mb-3">
+                                <label for="resetPasswordEmail" class="form-label">Adresse email</label>
+                                <input type="email" class="form-control" id="resetPasswordEmail" placeholder="email@example.com">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-8 align-self-end">
+                        <h1 class="text-white font-weight-bold">Agence de Communication Digital</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 mb-5">Vous avez besoin d'un graphiste pour augmenter votre visibilité, soigner votre identité visuelle, faire la promotion de vos événements ... ! Contactez nous</p>
+                        <a class="btn btn-primary btn-xl" href="#about">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- A propos-->
+        <section class="page-section bg-primary" id="about">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="text-white mt-0">Pourquoi nous choisir !</h2>
+                        <hr class="divider divider-light" />
+                        <p class="text-white-75 mb-4">Votre agence de communication digitale est un hub créatif où l'art de l'infographie rencontre l'expertise en community management et la conception de sites web innovants. Nous combinons notre passion pour le design visuel avec une stratégie de contenu ciblée pour donner vie à votre marque sur les plateformes numériques. Que ce soit par le biais de graphiques percutants, d'une présence sociale engageante ou de sites web esthétiques et fonctionnels, nous sommes là pour vous aider à atteindre vos objectifs de communication et à vous démarquer dans le monde numérique</p>
+                        <a class="btn btn-light btn-xl" href="#services">Commencer !</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">À votre service</h2>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">INFOGRAPHIE</h3>
+                            <p class="text-muted mb-0">Conception des Logos , Affiches , Flyers , Carte d'invitation, Backdrop et bien d'autre.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">COMMUNICATION</h3>
+                            <p class="text-muted mb-0">Création des pages facebooks professionnelle, Compte Youtube, Identité Graphique .</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">WEB DESIGN</h3>
+                            <p class="text-muted mb-0">Création des designs UX/UI pour vos sites , Création des sites internets.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2">PASSION</h3>
+                            <p class="text-muted mb-0">Notre travail est fait avec amour et respect des normes de la communication.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Portfolio-->
+        <div id="portfolio">
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/1.jpg" title="Fond photo mariage">
+                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/1.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Catégorie</div>
+                                <div class="project-name">Backdrop</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/2.jpg" title="Carte d'invitation anniversaire">
+                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/2.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Catégorie</div>
+                                <div class="project-name">Carte d'invitation</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/3.jpg" title="Couverture Anniversaire">
+                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/3.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Catégorie</div>
+                                <div class="project-name">Couverture</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/4.jpg" title="Portrait photo">
+                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/4.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Catégorie</div>
+                                <div class="project-name">Portrait</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/5.jpg" title="Logo LGD Service">
+                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/5.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Catégorie</div>
+                                <div class="project-name">Logo</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/6.jpg" title="Affiche piscine partie">
+                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/6.jpg" alt="..." />
+                            <div class="portfolio-box-caption p-3">
+                                <div class="project-category text-white-50">Catégorie</div>
+                                <div class="project-name">Affiches</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Appel � l'action-->
+        <section class="page-section bg-dark text-white">
+            <div class="container px-4 px-lg-5 text-center">
+                <h2 class="mb-4">Demander un devis gratuitement</h2>
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6 text-center">
+                        <h2 class="mt-0">Restons en contact !</h2>
+                        <hr class="divider" />
+                        <p class="text-muted mb-5">Prêt à démarrer votre prochain projet avec nous ? Envoyez-nous un message et nous vous répondrons dès que possible !</p>
+                    </div>
+                </div>
+                <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+                    <div class="col-lg-6">
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- * * Formulaire de contact SB Forms * *-->
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- Ce formulaire est pr�-int�gr� avec SB Forms.-->
+                        <!-- Pour rendre ce formulaire fonctionnel, inscrivez-vous �-->
+                        <!-- https://startbootstrap.com/solution/contact-forms-->
+                        <!-- pour obtenir un jeton API !-->
+                       <form id="contactForm" data-sb-form-api-token="cc112967-429a-4473-b955-577e8758a060">
+                            <!-- Name input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                <label for="name">Nom Complet</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">Un nom est obligatoire</div>
+                            </div>
+                            <!-- Email address input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                <label for="email">Adresse mail</label>
+                                <div class="invalid-feedback" data-sb-feedback="email:required">Une adresse mail est obligatoire.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">Email invalide.</div>
+                            </div>
+                            <!-- Phone number input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                <label for="phone">Numéro de téléphone</label>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Un numéro de téléphone est obligatoire.</div>
+                            </div>
+                            <!-- Message input-->
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="message" type="text" placeholder="Entrer votre message ici" style="height: 10rem" data-sb-validations="required"></textarea>
+                                <label for="message">Message</label>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">Un message est obligatoire.</div>
+                            </div>
+                            <!-- Submit success message-->
+                            <!---->
+                            <!-- This is what your users will see when the form-->
+                            <!-- has successfully submitted-->
+                            <div class="d-none" id="submitSuccessMessage">
+                                <div class="text-center mb-3">
+                                    <div class="fw-bolder">Message sousmis avec succès</div>
+                                </div>
+                            </div>
+                            <!-- Submit error message-->
+                            <!---->
+                            <!-- This is what your users will see when there is-->
+                            <!-- an error submitting the form-->
+                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Erreur d'envoie du message</div></div>
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Soumettre</button></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                </div>
+            </div>
+        </section>
+        <!-- Pied de page-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                        <a href="https://wa.me/+242065579449" onclick="openWhatsApp()" style="text-decoration: none; color: white;"><i class="bi bi-whatsapp fs-2 text-success"></i><br />Contactez-nous sur WhatsApp</a>
+                    </div>
+                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                        <a href="https://www.facebook.com/jojoroldy" style="text-decoration: none; color: white;"><i class="bi bi-facebook fs-2 text-primary"></i><br />Contactez-nous sur Facebook</a>
+                    </div>
+                    <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                        <i class="bi-phone fs-2 mb-3 text-white"></i>
+                        <div class="text-white">+242 06 557 94 49</div>
+                    </div>
+                </div>
+                <div class="small text-center text-white" style="margin-top: 20px;">Droits d'auteur &copy; 2024 - NJR Design</div>
+            </div>
+        </footer>
+        <!-- JS de base de Bootstrap-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- JS du plugin SimpleLightbox-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- JS du th�me principal-->
+        <script src="js/scripts.js"></script>
+        <script>
+            function openWhatsApp() {
+                window.location.href = "https://wa.me/+242065579449";
+            }
+        </script>
+        <script>
+            document.getElementById("signupForm").addEventListener("submit", function(event) {
+                var password = document.getElementById("signupPassword").value;
+                var confirmPassword = document.getElementById("confirmPassword").value;
+
+                if (password !== confirmPassword) {
+                    event.preventDefault();
+                    document.getElementById("passwordMismatchError").style.display = "block";
+                } else {
+                    document.getElementById("passwordMismatchError").style.display = "none";
+                }
+            });
+        </script>
+        <script>
+            document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
+                event.preventDefault();
+                $('#resetPasswordModal').modal('show');
+            });
+
+            document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Ajoutez ici la logique pour gérer l'envoi du formulaire de réinitialisation du mot de passe
+                // Par exemple, vous pouvez envoyer une requête AJAX au serveur pour réinitialiser le mot de passe
+                // Une fois le mot de passe réinitialisé, vous pouvez afficher un message de confirmation à l'utilisateur
+                // Et fermer la fenêtre modale
+                $('#resetPasswordModal').modal('hide');
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const loginForm = document.getElementById('loginForm');
+                const loginEmail = document.getElementById('loginEmail');
+                const loginPassword = document.getElementById('loginPassword');
+                const loginButton = document.getElementById('loginButton');
+                const welcomeMessage = document.getElementById('welcomeMessage');
+
+                loginForm.addEventListener('input', function() {
+                    if (loginEmail.value.trim() !== '' && loginPassword.value.trim() !== '') {
+                        loginButton.removeAttribute('disabled');
+                    } else {
+                        loginButton.setAttribute('disabled', 'disabled');
+                    }
+                });
+                loginForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Prevent form submission
+                    // Assuming login is successful, display welcome message
+                    welcomeMessage.style.display = 'block';
+                    // You can redirect the user or do other actions here
+                });
+            });
+        </script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+		<script type="module">
+
+		  // Import the functions you need from the SDKs you need
+
+		  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+
+		  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+
+		  // TODO: Add SDKs for Firebase products that you want to use
+
+		  // https://firebase.google.com/docs/web/setup#available-libraries
+
+
+		  // Your web app's Firebase configuration
+
+		  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+		  const firebaseConfig = {
+
+			apiKey: "AIzaSyC-O878oIM4UEKdNTLqWqVXuymx1JXCY0k",
+
+			authDomain: "njr-design.firebaseapp.com",
+
+			projectId: "njr-design",
+
+			storageBucket: "njr-design.appspot.com",
+
+			messagingSenderId: "395298937405",
+
+			appId: "1:395298937405:web:5124b0e10594420ecce854",
+
+			measurementId: "G-SMKJCGSV0W"
+
+		  };
+
+
+		  // Initialize Firebase
+
+		  const app = initializeApp(firebaseConfig);
+
+		  const analytics = getAnalytics(app);
+
+		</script>
+    </body>
+</html>
+
